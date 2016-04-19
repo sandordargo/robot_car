@@ -1,6 +1,13 @@
 import RPi.GPIO as GPIO
 import time
 
+right_motor_forwards_pin = 9
+right_motor_backwards_pin = 10
+
+left_motor_forwards_pin = 8
+left_motor_backwards_pin = 7
+
+
 def setup_motors():
     # Set the GPIO modes
     GPIO.setmode(GPIO.BCM)
@@ -16,16 +23,16 @@ def right_forwards():
     '''
     Turn the right motor forwards
     '''
-    GPIO.output(9, 1)
-    GPIO.output(10, 0)
+    right_motor_forwards_pin(1)
+    right_motor_backwards_pin(0)
 
 
 def left_forwards():
     '''
     Turn the left motor forwards
     '''
-    GPIO.output(7, 0)
-    GPIO.output(8, 1)
+    left_motor_backwards_pin(0)
+    left_motor_forwards_pin(1)
 
 def go_forwards():
     '''
@@ -39,16 +46,16 @@ def left_stop():
     '''
     Stop the left motor
     '''
-    GPIO.output(7, 0)
-    GPIO.output(8, 0)
+    left_motor_backwards_pin(0)
+    left_motor_forwards_pin(0)
 
 
 def right_stop():
     '''
     Stop the right motor
     '''
-    GPIO.output(9, 0)
-    GPIO.output(10, 0) 
+    right_motor_forwards_pin(0)
+    right_motor_backwards_pin(0) 
 
 
 def stop_motors():
@@ -63,16 +70,16 @@ def left_backwards():
     '''
     Turn the left motor backwards
     '''
-    GPIO.output(7, 1)
-    GPIO.output(8, 0)
+    left_motor_backwards_pin(1)
+    left_motor_forwards_pin(0)
 
 
 def right_backwards():
     '''
     Turn the right motor backwards
     '''
-    GPIO.output(9, 0)
-    GPIO.output(10, 1)
+    right_motor_forwards_pin(0)
+    right_motor_backwards_pin(1)
 
 
 def go_backwards():
