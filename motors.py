@@ -40,7 +40,7 @@ def left_stop():
     Stop the left motor
     '''
     GPIO.output(7, 0)
-    GPIO.output(8, 1)
+    GPIO.output(8, 0)
 
 
 def right_stop():
