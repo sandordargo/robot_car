@@ -82,17 +82,16 @@ def go_backwards():
     right_backwards()
     left_backwards()
 
-def turn_right_forward():
-    '''
-    Turn right by moving right wheel forwards and left backwards
-    '''
-    right_forwards()
-    #left_backwards()
-    left_stop()
-
 def turn_left_forward():
     '''
-    Turn left by moving left wheel forwards and right backwards
+    Turn left by moving right wheel forwards and left backwards
+    '''
+    right_forwards()
+    left_backwards()
+
+def turn_right_forward():
+    '''
+    Turn right by moving left wheel forwards and right backwards
     '''
     left_forwards()
     right_backwards()
