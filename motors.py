@@ -87,8 +87,8 @@ def turn_right_forward():
     Turn right by moving right wheel forwards and left backwards
     '''
     right_forwards()
-    left_backwards()
-
+    #left_backwards()
+    left_stop()
 
 def turn_left_forward():
     '''
