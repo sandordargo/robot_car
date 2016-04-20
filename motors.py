@@ -1,6 +1,8 @@
+from __future__ import print_function
+
 import RPi.GPIO as GPIO
 import time
-from __future__ import print_function
+
 
 right_motor_forwards_pin = 9
 right_motor_backwards_pin = 10
@@ -137,16 +139,5 @@ def turn_right_forward(duration_in_seconds=0):
     keep_moving(duration_in_seconds)
 
 
-setup_motors()
-# Turn all motors off
-stop_motors()
-go_forwards(1)
-turn_right_forward(0.5)
-go_forwards(1)
-turn_right_forward(0.5)
-go_forwards(1)
-turn_right_forward(0.5)
-
-
-# Reset the GPIO pins (turns off motors too)
-GPIO.cleanup()
+def cleanup():
+    GPIO.cleanup()
