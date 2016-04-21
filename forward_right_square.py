@@ -1,4 +1,4 @@
-from robot import motors
+import motors
 
 motors.setup_motors()
 motors.stop_motors()
