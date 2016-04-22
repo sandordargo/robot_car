@@ -1,17 +1,19 @@
-import motors
+import robot_controller
 
-motors.setup_motors()
-motors.stop_motors()
+my_robot = robot_controller.RobotController()
 
-motors.go_forwards(1)
-motors.turn_right_forward(0.5)
-motors.go_forwards(1)
-motors.turn_right_forward(0.5)
-motors.go_forwards(1)
-motors.turn_right_forward(0.5)
-motors.go_forwards(1)
-motors.turn_right_forward(0.5)
+my_robot.setup_motors()
+my_robot.stop_motors()
+
+my_robot.go_forwards(1)
+my_robot.turn_right_forward(0.5)
+my_robot.go_forwards(1)
+my_robot.turn_right_forward(0.5)
+my_robot.go_forwards(1)
+my_robot.turn_right_forward(0.5)
+my_robot.go_forwards(1)
+my_robot.turn_right_forward(0.5)
+
+my_robot.stop_robot()
 
 
-# Reset the GPIO pins (turns off motors too)
-motors.cleanup()
