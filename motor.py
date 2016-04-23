@@ -24,10 +24,12 @@ class Motor(object):
         print('setup {} motor'.format(self.name))
 
     def go_forwards(self):
+        self.set_pin_state(self.backwards_pin, 0)
         self.set_pin_state(self.forwards_pin, 1)
         print('go forwards {} motor'.format(self.name))
 
     def go_backwards(self):
+        self.set_pin_state(self.forwards_pin, 0)
         self.set_pin_state(self.backwards_pin, 1)
         print('go backwards {} motor'.format(self.name))
 
