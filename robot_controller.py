@@ -26,8 +26,8 @@ class RobotController(object):
         Turn both motors forwards
         """
         print("Move both motor forwards")
-        self.right_forwards()
-        self.left_forwards()
+        self.right_motor.go_forwards()
+        self.left_motor.go_forwards()
         self.keep_moving(duration_in_seconds)
 
     def stop_motors(self):
