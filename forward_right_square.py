@@ -2,7 +2,6 @@ import robot_controller
 
 my_robot = robot_controller.RobotController()
 
-my_robot.setup_motors()
 my_robot.stop_motors()
 
 my_robot.go_forwards(1)
