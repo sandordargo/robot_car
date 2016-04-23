@@ -10,6 +10,7 @@ class RobotController(object):
         right_motor_backwards_pin = 10
         left_motor_forwards_pin = 8
         left_motor_backwards_pin = 7
+        motor.Motor.setup_gpio()
         self.left_motor = motor.Motor(left_motor_forwards_pin, left_motor_backwards_pin, 'left')
         self.right_motor = motor.Motor(right_motor_forwards_pin, right_motor_backwards_pin, 'right')
 

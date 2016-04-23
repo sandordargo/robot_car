@@ -13,9 +13,12 @@ class Motor(object):
     def set_pin_state(self, pin, state):
         GPIO.output(pin, state)
 
-    def _setup_motor(self):
+    @staticmethod
+    def setup_gpio():
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(True)
+
+    def _setup_motor(self):
         GPIO.setup(self.forwards_pin, GPIO.OUT)
         GPIO.setup(self.backwards_pin, GPIO.OUT)
         print('setup {} motor'.format(self.name))
