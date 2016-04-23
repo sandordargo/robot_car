@@ -10,8 +10,8 @@ class RobotController(object):
         right_motor_backwards_pin = 10
         left_motor_forwards_pin = 8
         left_motor_backwards_pin = 7
-        self.left_motor = motor.Motor(left_motor_forwards_pin, left_motor_backwards_pin)
-        self.right_motor = motor.Motor(right_motor_forwards_pin, right_motor_backwards_pin)
+        self.left_motor = motor.Motor(left_motor_forwards_pin, left_motor_backwards_pin, 'left')
+        self.right_motor = motor.Motor(right_motor_forwards_pin, right_motor_backwards_pin, 'right')
 
     @staticmethod
     def keep_moving(duration_in_seconds=0):
