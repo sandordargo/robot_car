@@ -4,6 +4,9 @@ import RPi.GPIO as GPIO
 
 
 class Motor(object):
+
+    gpio_setup = False
+
     def __init__(self, forwards_pin, backwards_pin, name=None):
         self.forwards_pin = forwards_pin
         self.backwards_pin = backwards_pin
@@ -19,6 +22,9 @@ class Motor(object):
         GPIO.setwarnings(True)
 
     def _setup_motor(self):
+        if not Motor.gpio_setup:
+            Motor.setup_gpio()
+            Motor.gpio_setup = True
         GPIO.setup(self.forwards_pin, GPIO.OUT)
         GPIO.setup(self.backwards_pin, GPIO.OUT)
         print('setup {} motor'.format(self.name))
