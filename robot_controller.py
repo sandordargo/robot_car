@@ -71,7 +71,7 @@ class RobotController(object):
         """
         print("Turn slight left forwards")
         self.right_motor.go_forwards()
-        self.left_motor._stop_motor()
+        self.left_motor.stop()
         self.keep_moving(duration_in_seconds)
 
     def turn_slight_right_forward(self, duration_in_seconds=0):
@@ -80,7 +80,7 @@ class RobotController(object):
         """
         print("Turn slight right forwards")
         self.left_motor.go_forwards()
-        self.right_motor._stop_motor()
+        self.right_motor.stop()
         self.keep_moving(duration_in_seconds)
 
     def turn_left_backward(self, duration_in_seconds=0):
@@ -107,7 +107,7 @@ class RobotController(object):
         """
         print("Turn slight left forwards")
         self.right_motor.go_backwards()
-        self.left_motor._stop_motor()
+        self.left_motor.stop()
         self.keep_moving(duration_in_seconds)
 
     def turn_slight_right_backward(self, duration_in_seconds=0):
@@ -116,7 +116,7 @@ class RobotController(object):
         """
         print("Turn slight right forwards")
         self.left_motor.go_backwards()
-        self.right_motor._stop_motor()
+        self.right_motor.stop()
         self.keep_moving(duration_in_seconds)
 
     def stop_robot(self):
