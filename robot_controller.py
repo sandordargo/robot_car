@@ -2,7 +2,7 @@ from __future__ import print_function
 
 import time
 import motor
-
+import distance_measurement
 
 class RobotController(object):
     def __init__(self):
@@ -12,14 +12,23 @@ class RobotController(object):
         left_motor_backwards_pin = 7
         self.left_motor = motor.Motor(left_motor_forwards_pin, left_motor_backwards_pin, 'left')
         self.right_motor = motor.Motor(right_motor_forwards_pin, right_motor_backwards_pin, 'right')
+        self.distance_detector = distance_measurement.DistanceDetector()
 
-    @staticmethod
-    def keep_moving(duration_in_seconds=0):
+    def keep_moving(self, duration_in_seconds=0):
         """
         Keeps the set direction for the given amount of seconds
         """
+        step_time_in_second = 0.1
         print("Keep doing last action for {} seconds.".format(duration_in_seconds))
-        time.sleep(duration_in_seconds)
+        remaining_duration = duration_in_seconds
+        while remaining_duration > 0:
+            time.sleep(remaining_duration)
+            remaining_duration -= step_time_in_second
+            distance_from_obstacle = self.distance_detector.detect_distance()
+            if distance_from_obstacle < 3:
+                print("Obstacle is too close: {}. Stopping robot, waiting for next command".
+                      format(distance_from_obstacle))
+                self.stop_motors()
 
     def go_forwards(self, duration_in_seconds=0):
         """
