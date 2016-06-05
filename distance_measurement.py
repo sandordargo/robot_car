@@ -15,6 +15,7 @@ class DistanceDetector(object):
         GPIO.setup(self.pinEcho, GPIO.IN)
 
     def detect_distance(self):
+        enter_time = time.time()
         GPIO.output(self.pinTrigger, False)
         time.sleep(0.1)
         GPIO.output(self.pinTrigger, True)
@@ -35,7 +36,9 @@ class DistanceDetector(object):
         distance = elapsed_time * 34326
         distance /= 2
         print("Distance : %.1f" % distance)
-        return distance
+        measurement_time = time.time() - enter_time
+        print("Measurement time: {}".format(measurement_time))
+        return distance, measurement_time
 
 
 if __name__ == "__main__":
