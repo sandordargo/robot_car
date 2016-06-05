@@ -3,13 +3,15 @@ from __future__ import print_function
 import time
 import motor
 import distance_measurement
+import sys
+
 
 class RobotController(object):
     def __init__(self):
-        right_motor_forwards_pin = 9
-        right_motor_backwards_pin = 10
-        left_motor_forwards_pin = 8
-        left_motor_backwards_pin = 7
+        right_motor_forwards_pin = 10
+        right_motor_backwards_pin = 9
+        left_motor_forwards_pin = 7
+        left_motor_backwards_pin = 8
         self.left_motor = motor.Motor(left_motor_forwards_pin, left_motor_backwards_pin, 'left')
         self.right_motor = motor.Motor(right_motor_forwards_pin, right_motor_backwards_pin, 'right')
         self.distance_detector = distance_measurement.DistanceDetector()
@@ -18,17 +20,21 @@ class RobotController(object):
         """
         Keeps the set direction for the given amount of seconds
         """
-        step_time_in_second = 0.1
+        step_time_in_second = 0.05
         print("Keep doing last action for {} seconds.".format(duration_in_seconds))
-        remaining_duration = duration_in_seconds
-        while remaining_duration > 0:
+        remaining_duration = float(duration_in_seconds)
+        while remaining_duration > 0.0:
             time.sleep(remaining_duration)
             remaining_duration -= step_time_in_second
+            print("Time to go: {}".format(remaining_duration))
             distance_from_obstacle = self.distance_detector.detect_distance()
-            if distance_from_obstacle < 3:
+            if distance_from_obstacle < 20:
+                self.stop_motors()
                 print("Obstacle is too close: {}. Stopping robot, waiting for next command".
                       format(distance_from_obstacle))
-                self.stop_motors()
+                # GPIO.cleanup
+                # sys.exit()
+                return
 
     def go_forwards(self, duration_in_seconds=0):
         """

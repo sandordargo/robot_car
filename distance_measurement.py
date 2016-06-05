@@ -16,7 +16,7 @@ class DistanceDetector(object):
 
     def detect_distance(self):
         GPIO.output(self.pinTrigger, False)
-        time.sleep(0.5)
+        time.sleep(0.1)
         GPIO.output(self.pinTrigger, True)
         time.sleep(0.00001)
         GPIO.output(self.pinTrigger, False)
