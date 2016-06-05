@@ -50,7 +50,7 @@ try:
         Distance = Distance / 2
         print("Distance : %.1f" % Distance)
         time.sleep(0.5)  # If you press CTRL+C, cleanup and stop
-        
+
 except KeyboardInterrupt:
     # Reset GPIO settings
     GPIO.cleanup()
