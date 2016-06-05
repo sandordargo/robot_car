@@ -3,35 +3,46 @@ import time
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
-pinTrigger = 17
-pinEcho = 18
-print("Ultrasonic Measurement")
 
-GPIO.setup(pinTrigger, GPIO.OUT)
-GPIO.setup(pinEcho, GPIO.IN)
-try:
-    while True:
-        GPIO.output(pinTrigger, False)
+class DistanceDetector(object):
+
+    def __init__(self):
+        self.pinTrigger = 17
+        self.pinEcho = 18
+        print("Ultrasonic Measurement")
+
+        GPIO.setup(self.pinTrigger, GPIO.OUT)
+        GPIO.setup(self.pinEcho, GPIO.IN)
+
+    def detect_distance(self):
+        GPIO.output(self.pinTrigger, False)
         time.sleep(0.5)
-        GPIO.output(pinTrigger, True)
+        GPIO.output(self.pinTrigger, True)
         time.sleep(0.00001)
-        GPIO.output(pinTrigger, False)
-        StartTime = time.time()
-        while GPIO.input(pinEcho)==0:
-            StartTime = time.time()
+        GPIO.output(self.pinTrigger, False)
+        start_time = time.time()
+        while GPIO.input(self.pinEcho) == 0:
+            start_time = time.time()
 
-        while GPIO.input(pinEcho)==1:
-            StopTime = time.time()
-            if StopTime-StartTime >= 0.04:
+        while GPIO.input(self.pinEcho) == 1:
+            stop_time = time.time()
+            if stop_time-start_time >= 0.04:
                 print("Hold on there! You're too close for me to see.")
-                StopTime = StartTime
+                stop_time = start_time
                 break
 
-        ElapsedTime = StopTime - StartTime
-        Distance = ElapsedTime * 34326
-        Distance = Distance / 2
-        print("Distance : %.1f" % Distance)
-        time.sleep(0.5)
+        elapsed_time = stop_time - start_time
+        distance = elapsed_time * 34326
+        distance /= 2
+        print("Distance : %.1f" % distance)
+        return distance
 
-except KeyboardInterrupt:
-    GPIO.cleanup()
+
+if __name__ == "__main__":
+    detector = DistanceDetector()
+    try:
+        while True:
+            detector.detect_distance()
+            time.sleep(0.5)
+    except KeyboardInterrupt:
+        GPIO.cleanup
