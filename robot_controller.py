@@ -20,7 +20,6 @@ class RobotController(object):
         Keeps the set direction for the given amount of seconds
         """
         # TODO distance measurement before moving if move forward
-        # DONE distance measurement takes time, take it into account
         # TODO check how much time this function takes
         step_time_in_second = 0.05
         print("Keep doing last action for {} seconds.".format(duration_in_seconds))
@@ -47,19 +46,11 @@ class RobotController(object):
         # TODO check how much time this function takes
         step_time_in_second = 0.05
         print("Keep doing last action for {} seconds.".format(duration_in_seconds))
+        print("No obstacle checking when turning")
         remaining_duration = float(duration_in_seconds)
         while remaining_duration > 0.0:
             time.sleep(remaining_duration)
             remaining_duration -= step_time_in_second
-            # distance_from_obstacle, distance_measurement_time = self.distance_detector.detect_distance()
-            # remaining_duration -= distance_measurement_time
-            # print("Time to go: {}".format(remaining_duration))
-            # if distance_from_obstacle < 20:
-            #     self.stop_motors()
-            #     print("Obstacle is too close: {}. Stopping robot, waiting for next command".
-            #           format(distance_from_obstacle))
-            #     return
-
 
     def go_forwards(self, duration_in_seconds=0):
         """
