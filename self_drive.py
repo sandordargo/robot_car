@@ -23,20 +23,36 @@ def parse_arguments():
     return parser.parse_args()
 
 
+def weighted_choice(weights):
+    totals = []
+    running_total = 0
+
+    for weight in weights:
+        running_total += weight
+        totals.append(running_total)
+
+    rnd = random.random() * running_total
+    for i, total in enumerate(totals):
+        if rnd < total:
+            return i
+
+
 def self_drive(drive_time=10.0):
     my_robot = robot_controller.RobotController()
     default_step_time = 1.0
     default_turn_time = 0.2
 
-    movements_list_without_forward = [my_robot.go_backwards, my_robot.turn_left_backward, my_robot.turn_left_forward,
-                                      my_robot.turn_right_backward, my_robot.turn_right_forward,
-                                      my_robot.turn_slight_left_backward, my_robot.turn_slight_left_forward,
-                                      my_robot.turn_slight_right_backward, my_robot.turn_slight_right_forward]
+    movements_list_without_forward = [(my_robot.go_backwards, 1), (my_robot.turn_left_backward, 1),
+                                      (my_robot.turn_left_forward, 1), (my_robot.turn_right_backward, 1),
+                                      (my_robot.turn_right_forward, 1), (my_robot.turn_slight_left_backward, 1),
+                                      (my_robot.turn_slight_left_forward, 1), (my_robot.turn_slight_right_backward, 1),
+                                      (my_robot.turn_slight_right_forward, 1)]
 
-    movements_list_with_forward = [my_robot.go_backwards, my_robot.turn_left_backward, my_robot.turn_left_forward,
-                                      my_robot.turn_right_backward, my_robot.turn_right_forward, my_robot.go_forwards,
-                                      my_robot.turn_slight_left_backward, my_robot.turn_slight_left_forward,
-                                      my_robot.turn_slight_right_backward, my_robot.turn_slight_right_forward]
+    movements_list_with_forward = [(my_robot.go_backwards, 1), (my_robot.turn_left_backward, 1),
+                                   (my_robot.turn_left_forward, 1), (my_robot.turn_right_backward, 1),
+                                   (my_robot.turn_right_forward, 1), (my_robot.turn_slight_left_backward, 1),
+                                   (my_robot.turn_slight_left_forward, 1), (my_robot.turn_slight_right_backward, 1),
+                                   (my_robot.turn_slight_right_forward, 1), (my_robot.go_forwards, 8)]
     try:
         my_robot.stop_motors()
 
@@ -49,18 +65,19 @@ def self_drive(drive_time=10.0):
         while elapsed_time < drive_time:
             if abs(last_movement_time - default_step_time) < 0.1:
                 step_start_time = time.time()
-                random.choice(movements_list_with_forward)(default_turn_time)
+                movements_list_with_forward[weighted_choice([x[1] for x in movements_list_with_forward])][0](
+                    default_turn_time)
                 last_movement_time = time.time() - step_start_time
             else:
                 step_start_time = time.time()
-                random.choice(movements_list_without_forward)(default_turn_time)
+                movements_list_without_forward[weighted_choice([x[1] for x in movements_list_without_forward])][0](
+                    default_turn_time)
                 last_movement_time = time.time() - step_start_time
             elapsed_time += last_movement_time
     finally:
         my_robot.stop_robot()
 
+
 if __name__ == "__main__":
     arguments = parse_arguments()
     self_drive(arguments.drive_time)
-
-
