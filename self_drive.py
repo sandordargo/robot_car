@@ -1,10 +1,10 @@
 from __future__ import print_function
 
-import robot_controller
-
 import argparse
 import random
 import time
+
+from parts import robot_controller
 
 
 def parse_arguments():

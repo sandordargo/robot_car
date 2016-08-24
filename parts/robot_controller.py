@@ -1,8 +1,9 @@
 from __future__ import print_function
 
 import time
+
 import motor
-import distance_measurement
+from parts import distance_measurement
 
 
 class RobotController(object):

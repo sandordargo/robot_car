@@ -1,4 +1,4 @@
-import robot_controller
+from parts import robot_controller
 
 my_robot = robot_controller.RobotController()
 
